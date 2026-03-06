@@ -1,38 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useAppDispatch } from '../app/hooks';
-import { getChats, addMessage } from '../features/chat/chatSlice';
-import { ChatList } from '../components/ChatList';
+import { ChatList } from '../../components/ChatList/ChatList';
 import styles from './ChatPage.module.css';
-import { useNavigate } from 'react-router-dom';
-import { logout } from '../features/auth/authSlice';
+import { useChats } from '../../hooks/use-chats';
 
 export const ChatPage = () => {
-  const dispatch = useAppDispatch();
-  const [text, setText] = useState('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
-    dispatch(getChats());
-  }, [dispatch, navigate]);
-
-  const handleSend = () => {
-    if (text.trim()) {
-      dispatch(addMessage(text));
-      setText('');
-    }
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
+  const { text, setText, handleLogout, handleSend } = useChats();
 
   return (
     <div className={styles.chatPage}>

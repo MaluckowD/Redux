@@ -2,18 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchChats, sendMessage } from './chatAPI';
 import { RootState } from '../../app/store';
 import { v4 as uuidv4 } from 'uuid';
-import { logout } from '../auth/authSlice';
-
-export interface Message {
-  id: string;
-  body: string;
-  username: string;
-}
-
-interface ChatState {
-  messages: Message[];
-  loading: boolean;
-}
+import { logout } from '../auth';
+import { ChatState } from '../../types';
 
 const initialState: ChatState = {
   messages: [],

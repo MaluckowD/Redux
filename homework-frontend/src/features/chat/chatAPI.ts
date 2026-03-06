@@ -1,11 +1,20 @@
+import { Logger } from '../../utils/logger';
+
 const API_URL = 'http://localhost:3001';
 
 export async function fetchChats(token: string) {
+  const url = '/chats';
+  const options = { headers: { Authorization: `Bearer ${token}` } };
+
+  Logger.logRequest(url, options);
+
   const response = await fetch(`${API_URL}/chats`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  Logger.logResponse(url, response);
 
   if (!response.ok) throw new Error('Failed to fetch chats');
 
@@ -13,6 +22,9 @@ export async function fetchChats(token: string) {
 }
 
 export async function sendMessage(token: string, body: string) {
+  const url = '/chats';
+  const options = { headers: { Authorization: `Bearer ${token}` } };
+
   const response = await fetch(`${API_URL}/chats`, {
     method: 'POST',
     headers: {
@@ -21,6 +33,8 @@ export async function sendMessage(token: string, body: string) {
     },
     body: JSON.stringify({ body }),
   });
+  Logger.logRequest(url, options);
+  Logger.logResponse(url, response);
 
   if (!response.ok) throw new Error('Failed to send message');
 

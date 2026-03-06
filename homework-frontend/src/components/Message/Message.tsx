@@ -1,6 +1,6 @@
-import { Message as MessageType } from '../features/chat/chatSlice';
-import { useAppSelector } from '../app/hooks';
-import { selectUser } from '../features/auth/authSelectors';
+import { Message as MessageType } from '../../types/chat';
+import { useAppSelector } from '../../app/hooks';
+import { selectUser } from '../../features/auth';
 import styles from './Message.module.css';
 
 export const Message = ({ message }: { message: MessageType }) => {

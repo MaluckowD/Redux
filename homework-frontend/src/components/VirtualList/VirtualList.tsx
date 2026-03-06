@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useVirtualList } from '../../hooks/use-virtual-list';
 
 interface VirtualListProps<T> {
   items: T[];
@@ -13,23 +13,14 @@ export function VirtualList<T>({
   height,
   renderItem,
 }: VirtualListProps<T>) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollTop, setScrollTop] = useState(0);
-
-  const totalHeight = items.length * itemHeight;
-
-  const startIndex = Math.floor(scrollTop / itemHeight);
-  const visibleCount = Math.ceil(height / itemHeight) + 10;
-
-  const visibleItems = items.slice(startIndex, startIndex + visibleCount);
-
-  const offsetY = startIndex * itemHeight;
-
-  const handleScroll = () => {
-    if (containerRef.current) {
-      setScrollTop(containerRef.current.scrollTop);
-    }
-  };
+  const {
+    totalHeight,
+    visibleItems,
+    offsetY,
+    handleScroll,
+    containerRef,
+    startIndex,
+  } = useVirtualList<T>({ items, itemHeight, height });
 
   return (
     <div

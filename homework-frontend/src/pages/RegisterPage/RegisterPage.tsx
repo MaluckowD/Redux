@@ -1,43 +1,26 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { register, setError } from '../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import styles from '../AuthPage.module.css';
+import { useRegister } from '../../hooks/use-register';
 import {
   selectAuthError,
   selectAuthLoading,
-} from '../features/auth/authSelectors';
-import styles from './AuthPage.module.css';
+  setError,
+} from '../../features/auth';
 
 export const RegisterPage = () => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectAuthLoading);
   const error = useAppSelector(selectAuthError);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-  useEffect(() => {
-    return () => {
-      dispatch(setError(null));
-    };
-  }, [dispatch]);
-
-  const handleRegister = async () => {
-    if (!username.trim() || !password.trim()) {
-      dispatch(setError('Введите username и password'));
-      return;
-    }
-
-    try {
-      const resultAction = await dispatch(register({ username, password }));
-      if (register.fulfilled.match(resultAction)) {
-        setSuccessMessage('Пользователь успешно зарегистрирован!');
-        setUsername('');
-        setPassword('');
-      }
-    } catch {}
-  };
+  const {
+    handleRegister,
+    successMessage,
+    username,
+    password,
+    setUsername,
+    setPassword,
+  } = useRegister();
 
   return (
     <div className={styles.authContainer}>

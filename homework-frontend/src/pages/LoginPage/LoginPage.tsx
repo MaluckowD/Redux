@@ -1,45 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { login, setError } from '../features/auth/authSlice';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import styles from '../AuthPage.module.css';
+import { useLogin } from '../../hooks/use-login';
 import {
   selectAuthError,
   selectAuthLoading,
-  selectAuthUser,
-} from '../features/auth/authSelectors';
-import styles from './AuthPage.module.css';
+  setError,
+} from '../../features/auth';
 
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectAuthLoading);
   const error = useAppSelector(selectAuthError);
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
-  const user = useAppSelector(selectAuthUser);
-
-  useEffect(() => {
-    return () => {
-      dispatch(setError(null));
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      navigate('/chat');
-    }
-  }, [user]);
-
-  const handleLogin = () => {
-    if (!username.trim() || !password.trim()) {
-      dispatch(setError('Введите username и password'));
-      return;
-    }
-
-    dispatch(login({ username, password }));
-  };
+  const { username, password, setUsername, setPassword, handleLogin } =
+    useLogin();
 
   return (
     <div className={styles.authContainer}>
