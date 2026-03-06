@@ -19,14 +19,16 @@
 
 ````bash
 npm install
+````
 
 2. Запустить бекенд:
 
 ```bash
 npm start
+```
 
 3. Запустить фронтенд:
 
 ```bash
 npm run dev
-````
+```
