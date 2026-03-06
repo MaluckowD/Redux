@@ -1,0 +1,55 @@
+.messageWrapper {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.own {
+  justify-content: flex-end;
+}
+
+.other {
+  justify-content: flex-start;
+}
+
+.ownBubble {
+  background-color: #3b82f6;
+  color: white;
+  border-bottom-right-radius: 0;
+}
+
+.otherBubble {
+  background-color: #e5e7eb;
+  color: #111827;
+  border-bottom-left-radius: 0;
+}
+
+.messageRow {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.myMessage {
+  justify-content: flex-end;
+}
+
+.otherMessage {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 60%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background-color: #f1f1f1;
+}
+
+.myMessage .bubble {
+  background-color: #4f8cff;
+  color: white;
+}
+
+.username {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}

@@ -1,0 +1,81 @@
+.authContainer {
+  max-width: 400px;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.authHeader {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.inputField:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.authButton {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.loginButton {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.loginButton:hover {
+  background-color: #2563eb;
+}
+
+.registerButton {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.registerButton:hover {
+  background-color: #d1d5db;
+}
+
+.errorMessage {
+  color: #dc2626;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.successMessage {
+  color: green;
+  margin-top: 8px;
+  font-weight: bold;
+}

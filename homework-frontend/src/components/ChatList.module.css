@@ -1,0 +1,23 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+}
+
+.emptyMessage {
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.message {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
