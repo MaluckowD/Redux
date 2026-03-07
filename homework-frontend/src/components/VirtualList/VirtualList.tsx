@@ -1,4 +1,4 @@
-import { useVirtualList } from '../../hooks/use-virtual-list';
+import { useVirtualList } from '../../hooks';
 
 interface VirtualListProps<T> {
   items: T[];

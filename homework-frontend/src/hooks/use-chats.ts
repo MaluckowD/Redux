@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addMessage, getChats } from '../features/chat';
-import { logout } from '../features/auth';
 import { useAppDispatch } from '../app/hooks';
 
 export const useChats = () => {
@@ -11,13 +10,18 @@ export const useChats = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('user');
-
     if (!user) {
       navigate('/login');
       return;
     }
 
-    dispatch(getChats());
+    const controller = new AbortController();
+
+    dispatch(getChats({ signal: controller.signal }));
+
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, navigate]);
 
   const handleSend = () => {
@@ -27,14 +31,9 @@ export const useChats = () => {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
-  };
   return {
     text,
     setText,
-    handleLogout,
     handleSend,
   };
 };

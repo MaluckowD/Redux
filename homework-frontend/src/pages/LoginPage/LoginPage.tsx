@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import styles from '../AuthPage.module.css';
-import { useLogin } from '../../hooks/use-login';
+import { useLoginForm } from '../../hooks';
 import {
   selectAuthError,
   selectAuthLoading,
@@ -13,7 +13,7 @@ export const LoginPage = () => {
   const loading = useAppSelector(selectAuthLoading);
   const error = useAppSelector(selectAuthError);
   const { username, password, setUsername, setPassword, handleLogin } =
-    useLogin();
+    useLoginForm();
 
   return (
     <div className={styles.authContainer}>
@@ -22,6 +22,7 @@ export const LoginPage = () => {
       <input
         className={styles.inputField}
         placeholder="Username"
+        autoComplete="username"
         value={username}
         onChange={(e) => {
           setUsername(e.target.value);
@@ -33,6 +34,7 @@ export const LoginPage = () => {
         type="password"
         className={styles.inputField}
         placeholder="Password"
+        autoComplete="current-password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);

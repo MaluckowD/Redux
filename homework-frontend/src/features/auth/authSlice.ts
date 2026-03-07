@@ -10,8 +10,14 @@ const initialState: AuthState = {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ username, password }: { username: string; password: string }) => {
+  async (
+    { username, password }: { username: string; password: string },
+    { dispatch },
+  ) => {
     await registerUser(username, password);
+
+    await dispatch(login({ username, password }));
+
     return { username };
   },
 );

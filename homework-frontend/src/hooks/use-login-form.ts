@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { login, selectAuthUser, setError } from '../features/auth';
 
-export const useLogin = () => {
+export const useLoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

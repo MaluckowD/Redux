@@ -1,19 +1,27 @@
 import { useEffect, useState } from 'react';
-import { register, setError } from '../features/auth';
-import { useAppDispatch } from '../app/hooks';
+import { register, selectAuthUser, setError } from '../features/auth';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useNavigate } from 'react-router-dom';
 
-export const useRegister = () => {
+export const useRegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const user = useAppSelector(selectAuthUser);
 
   useEffect(() => {
     return () => {
       dispatch(setError(null));
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/chat');
+    }
+  }, [user]);
 
   const handleRegister = async () => {
     if (!username.trim() || !password.trim()) {
@@ -24,7 +32,6 @@ export const useRegister = () => {
     try {
       const resultAction = await dispatch(register({ username, password }));
       if (register.fulfilled.match(resultAction)) {
-        setSuccessMessage('Пользователь успешно зарегистрирован!');
         setUsername('');
         setPassword('');
       }
@@ -33,7 +40,6 @@ export const useRegister = () => {
 
   return {
     handleRegister,
-    successMessage,
     username,
     password,
     setUsername,

@@ -12,18 +12,9 @@ const initialState: ChatState = {
 
 export const getChats = createAsyncThunk(
   'chat/getChats',
-  async (_, { getState, dispatch, rejectWithValue }) => {
-    const state = getState() as RootState;
-
-    try {
-      return await fetchChats(state.auth.user!.token);
-    } catch (error: any) {
-      if (error.status === 401 || error.status === 403) {
-        dispatch(logout());
-      }
-
-      return rejectWithValue(error);
-    }
+  async (options: { signal?: AbortSignal }, { signal }) => {
+    const abortSignal = options.signal ?? signal;
+    return await fetchChats({ signal: abortSignal });
   },
 );
 
@@ -46,16 +37,8 @@ export const addMessage = createAsyncThunk(
       username,
     };
 
-    try {
-      await sendMessage(user.token, body);
-      return message;
-    } catch (error: any) {
-      if (error.status === 401 || error.status === 403) {
-        dispatch(logout());
-      }
-
-      return rejectWithValue(error);
-    }
+    await sendMessage(body);
+    return message;
   },
 );
 

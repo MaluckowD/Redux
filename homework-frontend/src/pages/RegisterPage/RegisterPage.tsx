@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import styles from '../AuthPage.module.css';
-import { useRegister } from '../../hooks/use-register';
+import { useRegisterForm } from '../../hooks';
 import {
   selectAuthError,
   selectAuthLoading,
@@ -13,14 +13,8 @@ export const RegisterPage = () => {
   const loading = useAppSelector(selectAuthLoading);
   const error = useAppSelector(selectAuthError);
 
-  const {
-    handleRegister,
-    successMessage,
-    username,
-    password,
-    setUsername,
-    setPassword,
-  } = useRegister();
+  const { handleRegister, username, password, setUsername, setPassword } =
+    useRegisterForm();
 
   return (
     <div className={styles.authContainer}>
@@ -29,6 +23,7 @@ export const RegisterPage = () => {
       <input
         className={styles.inputField}
         placeholder="Username"
+        autoComplete="username"
         value={username}
         onChange={(e) => {
           setUsername(e.target.value);
@@ -40,6 +35,7 @@ export const RegisterPage = () => {
         type="password"
         className={styles.inputField}
         placeholder="Password"
+        autoComplete="new-password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
@@ -56,9 +52,6 @@ export const RegisterPage = () => {
       </button>
 
       {error && <p className={styles.errorMessage}>{error}</p>}
-      {successMessage && (
-        <p className={styles.successMessage}>{successMessage}</p>
-      )}
 
       <p>
         Уже есть аккаунт? <Link to="/login">Login</Link>
