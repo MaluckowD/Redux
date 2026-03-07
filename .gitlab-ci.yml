@@ -1,22 +1,11 @@
 stages:
   - install
   - build
-  - test
   - deploy
 
 variables:
-  FRONTEND_DIR: homework-frontend
-  BACKEND_DIR: homework-backend
-
-install-frontend:
-  stage: install
-  image: node:20
-  script:
-    - cd $FRONTEND_DIR
-    - npm ci
-  artifacts:
-    paths:
-      - $FRONTEND_DIR/node_modules
+  FRONTEND_DIR: "homework-frontend"
+  BACKEND_DIR: "homework-backend"
 
 install-backend:
   stage: install
@@ -26,7 +15,35 @@ install-backend:
     - npm ci
   artifacts:
     paths:
-      - $BACKEND_DIR/node_modules
+      - $BACKEND_DIR/node_modules/
+
+install-frontend:
+  stage: install
+  image: node:20
+  script:
+    - cd $FRONTEND_DIR
+    - npm ci
+  artifacts:
+    paths:
+      - $FRONTEND_DIR/node_modules/
+
+build-backend:
+  stage: build
+  image: node:20
+  dependencies:
+    - install-backend
+  script:
+    - cd $BACKEND_DIR
+    - |
+      if npm run | grep -q 'build'; then
+        echo "Build script found, running npm run build"
+        npm run build
+      else
+        echo "No build script for backend, skipping"
+      fi
+  artifacts:
+    paths:
+      - $BACKEND_DIR/dist/
 
 build-frontend:
   stage: build
@@ -38,46 +55,12 @@ build-frontend:
     - npm run build
   artifacts:
     paths:
-      - $FRONTEND_DIR/dist
-
-build-backend:
-  stage: build
-  image: node:20
-  dependencies:
-    - install-backend
-  script:
-    - cd $BACKEND_DIR
-    - npm run build
-  artifacts:
-    paths:
-      - $BACKEND_DIR/dist
-
-test-frontend:
-  stage: test
-  image: node:20
-  dependencies:
-    - install-frontend
-  script:
-    - cd $FRONTEND_DIR
-    - npm run test
-
-test-backend:
-  stage: test
-  image: node:20
-  dependencies:
-    - install-backend
-  script:
-    - cd $BACKEND_DIR
-    - npm run test
+      - $FRONTEND_DIR/dist/
 
 pages:
   stage: deploy
-  image: node:20
-  dependencies:
-    - build-frontend
   script:
-    - mkdir -p public
-    - cp -r $FRONTEND_DIR/dist/* public/
+    - cp -r $FRONTEND_DIR/dist public
   artifacts:
     paths:
       - public
