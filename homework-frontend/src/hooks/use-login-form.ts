@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { login, selectAuthUser, setError } from '../features/auth';
+import { login, selectAuthUser } from '../features/auth';
 
 export const useLoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
   const user = useAppSelector(selectAuthUser);
 
@@ -18,16 +18,9 @@ export const useLoginForm = () => {
     }
   }, [user]);
 
-  useEffect(() => {
-    return () => {
-      dispatch(setError(null));
-    };
-  }, [dispatch]);
-
-
   const handleLogin = () => {
     if (!username.trim() || !password.trim()) {
-      dispatch(setError('Введите username и password'));
+      setError('Введите username и password')
       return;
     }
 
@@ -40,5 +33,7 @@ export const useLoginForm = () => {
     setUsername,
     setPassword,
     handleLogin,
+    error,
+    setError
   };
 };

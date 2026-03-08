@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchChats, sendMessage } from './chatAPI';
 import { RootState } from '../../app/store';
 import { v4 as uuidv4 } from 'uuid';
-import { logout } from '../auth';
 import { ChatState } from '../../types';
 
 const initialState: ChatState = {

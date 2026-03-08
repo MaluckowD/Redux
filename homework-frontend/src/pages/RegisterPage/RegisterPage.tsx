@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import styles from '../AuthPage.module.css';
 import { useRegisterForm } from '../../hooks';
 import {
-  selectAuthError,
   selectAuthLoading,
-  setError,
 } from '../../features/auth';
 
 export const RegisterPage = () => {
-  const dispatch = useAppDispatch();
   const loading = useAppSelector(selectAuthLoading);
-  const error = useAppSelector(selectAuthError);
 
-  const { handleRegister, username, password, setUsername, setPassword } =
+  const { handleRegister, username, password, setUsername, setPassword, error, setError } =
     useRegisterForm();
 
   return (
@@ -27,7 +23,7 @@ export const RegisterPage = () => {
         value={username}
         onChange={(e) => {
           setUsername(e.target.value);
-          dispatch(setError(null));
+          setError(null);
         }}
       />
 
@@ -39,7 +35,7 @@ export const RegisterPage = () => {
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
-          dispatch(setError(null));
+          setError(null);
         }}
       />
 
