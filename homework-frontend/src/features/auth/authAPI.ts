@@ -1,4 +1,4 @@
-import { apiFetch } from "../../api/apiClient";
+import { apiFetch } from '../../api/apiClient';
 
 const API_URL = 'http://localhost:3001';
 

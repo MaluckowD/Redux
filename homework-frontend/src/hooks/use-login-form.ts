@@ -20,7 +20,7 @@ export const useLoginForm = () => {
 
   const handleLogin = () => {
     if (!username.trim() || !password.trim()) {
-      setError('Введите username и password')
+      setError('Введите username и password');
       return;
     }
 
@@ -34,6 +34,6 @@ export const useLoginForm = () => {
     setPassword,
     handleLogin,
     error,
-    setError
+    setError,
   };
 };

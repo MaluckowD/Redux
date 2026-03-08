@@ -13,7 +13,7 @@ export const getChats = createAsyncThunk(
   'chat/getChats',
   async (_, { signal }) => {
     return fetchChats({ signal });
-  }
+  },
 );
 
 export const addMessage = createAsyncThunk(

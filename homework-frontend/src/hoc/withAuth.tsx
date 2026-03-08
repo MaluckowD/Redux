@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export function withAuth<P extends JSX.IntrinsicAttributes>(WrappedComponent: React.ComponentType<P>) {
+export function withAuth<P extends JSX.IntrinsicAttributes>(
+  WrappedComponent: React.ComponentType<P>,
+) {
   return (props: P) => {
     const navigate = useNavigate();
 

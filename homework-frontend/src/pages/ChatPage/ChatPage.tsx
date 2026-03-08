@@ -5,7 +5,7 @@ import styles from './ChatPage.module.css';
 
 const ChatPageComponent = () => {
   const { text, setText, handleSend } = useChats();
-  const {handleLogout} = useLogout();
+  const { handleLogout } = useLogout();
 
   return (
     <div className={styles.chatPage}>

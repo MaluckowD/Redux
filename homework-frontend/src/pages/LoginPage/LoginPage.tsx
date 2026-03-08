@@ -2,14 +2,19 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import styles from '../AuthPage.module.css';
 import { useLoginForm } from '../../hooks';
-import {
-  selectAuthLoading,
-} from '../../features/auth';
+import { selectAuthLoading } from '../../features/auth';
 
 export const LoginPage = () => {
   const loading = useAppSelector(selectAuthLoading);
-  const { username, password, setUsername, setPassword, handleLogin, error, setError } =
-    useLoginForm();
+  const {
+    username,
+    password,
+    setUsername,
+    setPassword,
+    handleLogin,
+    error,
+    setError,
+  } = useLoginForm();
 
   return (
     <div className={styles.authContainer}>

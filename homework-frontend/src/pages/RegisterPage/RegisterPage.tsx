@@ -2,15 +2,20 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import styles from '../AuthPage.module.css';
 import { useRegisterForm } from '../../hooks';
-import {
-  selectAuthLoading,
-} from '../../features/auth';
+import { selectAuthLoading } from '../../features/auth';
 
 export const RegisterPage = () => {
   const loading = useAppSelector(selectAuthLoading);
 
-  const { handleRegister, username, password, setUsername, setPassword, error, setError } =
-    useRegisterForm();
+  const {
+    handleRegister,
+    username,
+    password,
+    setUsername,
+    setPassword,
+    error,
+    setError,
+  } = useRegisterForm();
 
   return (
     <div className={styles.authContainer}>

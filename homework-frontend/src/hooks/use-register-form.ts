@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { register, selectAuthUser} from '../features/auth';
+import { register, selectAuthUser } from '../features/auth';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { useNavigate } from 'react-router-dom';
 
