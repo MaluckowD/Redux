@@ -21,7 +21,6 @@ export const addMessage = createAppAsyncThunk(
   async (body: string, { getState, rejectWithValue }) => {
     const state = getState();
     const user = state.auth.user;
-    console.log(user);
 
     if (!user) {
       return rejectWithValue('User not logged in');
