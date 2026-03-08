@@ -12,16 +12,17 @@ export const useRegisterForm = () => {
   const user = useAppSelector(selectAuthUser);
 
   useEffect(() => {
+    if (user) {
+      navigate('/chat');
+    }
+  }, [user]);
+
+  useEffect(() => {
     return () => {
       dispatch(setError(null));
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    if (user) {
-      navigate('/chat');
-    }
-  }, [user]);
 
   const handleRegister = async () => {
     if (!username.trim() || !password.trim()) {

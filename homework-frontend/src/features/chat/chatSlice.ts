@@ -12,20 +12,18 @@ const initialState: ChatState = {
 
 export const getChats = createAsyncThunk(
   'chat/getChats',
-  async (options: { signal?: AbortSignal }, { signal }) => {
-    const abortSignal = options.signal ?? signal;
-    return await fetchChats({ signal: abortSignal });
-  },
+  async (_, { signal }) => {
+    return fetchChats({ signal });
+  }
 );
 
 export const addMessage = createAsyncThunk(
   'chat/addMessage',
-  async (body: string, { getState, dispatch, rejectWithValue }) => {
+  async (body: string, { getState, rejectWithValue }) => {
     const state = getState() as RootState;
     const user = state.auth.user;
 
     if (!user) {
-      dispatch(logout());
       return rejectWithValue('User not logged in');
     }
 

@@ -1,10 +1,11 @@
 import { ChatList } from '../../components/ChatList/ChatList';
+import { withAuth } from '../../hoc/withAuth';
 import { useChats, useLogout } from '../../hooks';
 import styles from './ChatPage.module.css';
 
-export const ChatPage = () => {
+const ChatPageComponent = () => {
   const { text, setText, handleSend } = useChats();
-  const { handleLogout } = useLogout();
+  const {handleLogout} = useLogout();
 
   return (
     <div className={styles.chatPage}>
@@ -14,21 +15,16 @@ export const ChatPage = () => {
           Выйти
         </button>
       </div>
-
       <ChatList />
 
       <div className={styles.inputContainer}>
-        <textarea
+        <input
+          type="text"
           className={styles.inputBox}
           placeholder="Type a message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSend();
-            }
-          }}
+          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
         />
         <button className={styles.sendButton} onClick={handleSend}>
           Send
@@ -37,3 +33,5 @@ export const ChatPage = () => {
     </div>
   );
 };
+
+export const ChatPage = withAuth(ChatPageComponent);
