@@ -25,12 +25,15 @@ export const useRegisterForm = () => {
     }
 
     try {
-      const resultAction = await dispatch(register({ username, password }));
-      if (register.fulfilled.match(resultAction)) {
-        setUsername('');
-        setPassword('');
-      }
-    } catch {}
+      setError(null);
+
+      await dispatch(register({ username, password })).unwrap();
+
+      setUsername('');
+      setPassword('');
+    } catch (err) {
+      setError(err as string);
+    }
   };
 
   return {

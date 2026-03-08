@@ -18,13 +18,14 @@ export const useLoginForm = () => {
     }
   }, [user]);
 
-  const handleLogin = () => {
-    if (!username.trim() || !password.trim()) {
-      setError('Введите username и password');
-      return;
-    }
+  const handleLogin = async () => {
+    try {
+      setError(null);
 
-    dispatch(login({ username, password }));
+      await dispatch(login({ username, password })).unwrap();
+    } catch (err) {
+      setError(err as string);
+    }
   };
 
   return {

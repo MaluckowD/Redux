@@ -1,35 +1,45 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { loginUser, registerUser } from './authAPI';
 import { AuthState } from '../../types';
+import { createAppAsyncThunk } from '../../app/createAppAsyncThunk';
 
 const initialState: AuthState = {
   user: JSON.parse(localStorage.getItem('user') || 'null'),
   loading: false,
 };
 
-export const register = createAsyncThunk(
-  'auth/register',
+export const login = createAppAsyncThunk(
+  'auth/login',
   async (
     { username, password }: { username: string; password: string },
-    { dispatch },
+    { rejectWithValue },
   ) => {
-    await registerUser(username, password);
-
-    await dispatch(login({ username, password }));
-
-    return { username };
+    try {
+      const response = await loginUser(username, password);
+      return {
+        username,
+        token: response.token,
+      };
+    } catch {
+      return rejectWithValue('Неверный логин или пароль');
+    }
   },
 );
 
-export const login = createAsyncThunk(
-  'auth/login',
-  async ({ username, password }: { username: string; password: string }) => {
-    const response = await loginUser(username, password);
+export const register = createAppAsyncThunk(
+  'auth/register',
+  async (
+    { username, password }: { username: string; password: string },
+    { dispatch, rejectWithValue },
+  ) => {
+    try {
+      await registerUser(username, password);
+      await dispatch(login({ username, password })).unwrap();
 
-    return {
-      username,
-      token: response.token,
-    };
+      return { username };
+    } catch {
+      return rejectWithValue('Ошибка регистрации');
+    }
   },
 );
 
@@ -52,7 +62,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         localStorage.setItem('user', JSON.stringify(action.payload));
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state) => {
         state.loading = false;
       })
 
