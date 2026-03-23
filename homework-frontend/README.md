@@ -1,27 +1,34 @@
-# vite-template-redux
+# Global Chat
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+Приложение "Глобальный чат" на React + Redux Toolkit.
 
-```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
+## Функциональность
+
+- Регистрация и авторизация пользователей.
+- Отправка и просмотр сообщений в общем чате.
+- Состояние пользователя сохраняется между перезагрузками страницы.
+- Автоматический выход при ошибке авторизации (`401`, `403`).
+- Виртуальный скролл для оптимальной работы с большим количеством сообщений.
+- Валидация форм регистрации и авторизации.
+
+## Структура проекта
+
+## Запуск проекта
+
+1. Установить зависимости:
+
+```bash
+npm install
 ```
 
-## Goals
+2. Запустить бекенд:
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+```bash
+npm start
+```
 
-## Scripts
+3. Запустить фронтенд:
 
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
-
-## Inspiration
-
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+```bash
+npm run dev
+```

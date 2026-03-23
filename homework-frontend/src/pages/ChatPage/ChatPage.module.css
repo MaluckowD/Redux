@@ -1,0 +1,57 @@
+.chatPage {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.chatHeader {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.inputContainer {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.inputBox {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem 0 0 0.5rem;
+  outline: none;
+}
+
+.sendButton {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0 0.5rem 0.5rem 0;
+  border: none;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: #2563eb;
+}
+
+.chatHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoutButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+}
